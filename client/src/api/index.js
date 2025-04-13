@@ -9,6 +9,9 @@ API.interceptors.request.use((req) => {
 
   return req;
 });
+import cors from 'cors';
+
+app.use(cors());
 
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
