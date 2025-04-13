@@ -1,4 +1,10 @@
 import axios from 'axios';
+import express from 'express';
+import cors from 'cors'; // Only one import of cors here
+
+// other imports...
+
+const app = express();
 
 const API = axios.create({ baseURL: 'https://ethnus-mern-project-ic2z.onrender.com' });
 
@@ -6,12 +12,10 @@ API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
     req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
   }
-
   return req;
 });
-import cors from 'cors';
 
-app.use(cors());
+app.use(cors());  // Using cors middleware
 
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
